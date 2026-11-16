@@ -263,5 +263,5 @@ If you would like to contribute:
 5. Submit a pull request.
 
 ## License
-
-See the [LICENSE](LICENSE) file for licensing information.
+InfraGuard is licensed under the MIT License.
+See the [LICENSE](LICENSE) file for details.
