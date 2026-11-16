@@ -1,6 +1,30 @@
+# InfraGuard
+
+**InfraGuard** is a lightweight, cross-platform infrastructure auditing CLI built with Python. It helps system administrators and infrastructure engineers quickly inspect essential system information and resource utilization directly from their terminals.
+
+InfraGuard provides structured audit reports with support for terminal, JSON, and Markdown output.
+
+## Features
+
+- Hostname identification
+- Operating system and platform detection
+- CPU utilization monitoring
+- Memory utilization monitoring
+- Disk usage monitoring across mounted filesystems
+- Formatted terminal audit reports
+- JSON output for automation and integrations
+- Markdown output for documentation and reporting
+- Cross-platform support
+
+## Requirements
+
+- Python 3.10 or later
+- Git
+- pipx (recommended for installation)
+
 ## Installation
 
-InfraGuard requires Python 3.10 or later and Git.
+InfraGuard uses **pipx** for installation. pipx installs Python CLI applications in isolated virtual environments and makes their commands available globally without requiring manual environment activation.
 
 ### Linux (Ubuntu/Debian)
 
@@ -8,38 +32,78 @@ InfraGuard requires Python 3.10 or later and Git.
 
 ```bash
 sudo apt update
-sudo apt install -y git python3 python3-venv python3-pip
+sudo apt install -y git python3 python3-pip pipx
 ```
 
-**2. Clone the repository**
+Ensure Python 3.10 or later is installed.
+
+**2. Configure pipx**
 
 ```bash
-git clone https://github.com/samuelshow1234/infraguard.git
-cd infraguard
+pipx ensurepath
 ```
 
-**3. Create a virtual environment**
+Reload your shell:
 
 ```bash
-python3 -m venv .venv
+source ~/.bashrc
 ```
 
-**4. Activate the virtual environment**
+If you use another shell, restart it or reload its configuration.
+
+**3. Install InfraGuard**
 
 ```bash
-source .venv/bin/activate
+pipx install git+https://github.com/samuelshow1234/infraguard.git
 ```
 
-**5. Install InfraGuard**
+**4. Run InfraGuard**
 
 ```bash
-python -m pip install --upgrade pip
-pip install .
+infraguard
 ```
 
-Pip automatically installs the required dependencies, including Typer, Rich and psutil.
+No virtual environment activation is required.
 
-**6. Run InfraGuard**
+### Oracle Linux / RHEL
+
+**1. Install Python and Git**
+
+Install Python 3.10 or later and Git using your distribution's supported package repositories.
+
+For example, on Oracle Linux 9 with Python 3.12 available:
+
+```bash
+sudo dnf install -y python3.12 python3.12-pip git
+```
+
+**2. Install pipx**
+
+```bash
+python3.12 -m pip install --user pipx
+```
+
+If your distribution provides pipx through its package repositories, you can install it using the system package manager instead.
+
+**3. Add pipx to your PATH**
+
+```bash
+python3.12 -m pipx ensurepath
+```
+
+Reload your shell:
+
+```bash
+source ~/.bashrc
+```
+
+**4. Install InfraGuard**
+
+```bash
+pipx install git+https://github.com/samuelshow1234/infraguard.git
+```
+
+**5. Run InfraGuard**
 
 ```bash
 infraguard
@@ -47,108 +111,125 @@ infraguard
 
 ### Windows (PowerShell)
 
-**1. Install Python 3.10+ and Git.**
+**1. Install Python 3.10 or later and Git.**
 
-**2. Clone the repository**
-
-```powershell
-git clone https://github.com/samuelshow1234/infraguard.git
-cd infraguard
-```
-
-**3. Create a virtual environment**
+**2. Install pipx**
 
 ```powershell
-py -3 -m venv .venv
+py -m pip install --user pipx
 ```
 
-**4. Activate the environment**
+**3. Configure pipx**
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
+py -m pipx ensurepath
 ```
 
-**5. Install InfraGuard**
+Restart PowerShell so the PATH changes take effect.
+
+**4. Install InfraGuard**
 
 ```powershell
-python -m pip install --upgrade pip
-pip install .
+pipx install git+https://github.com/samuelshow1234/infraguard.git
 ```
 
-**6. Run InfraGuard**
+**5. Run InfraGuard**
 
 ```powershell
 infraguard
-```
-
-If PowerShell execution policies prevent environment activation, you can use the virtual environment's Python directly:
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install .
-.\.venv\Scripts\python.exe -m infraguard.cli
 ```
 
 ### Windows Subsystem for Linux (WSL)
 
 WSL users can follow the Linux installation instructions from their WSL terminal.
 
-```bash
-sudo apt update
-sudo apt install -y git python3 python3-venv python3-pip
+## Usage
 
-git clone https://github.com/samuelshow1234/infraguard.git
-cd infraguard
+Once installed, InfraGuard can be executed directly from any terminal.
 
-python3 -m venv .venv
-source .venv/bin/activate
-
-python -m pip install --upgrade pip
-pip install .
-
-infraguard
-```
-
-### Usage
-
-Run a standard infrastructure audit:
+**Run a standard infrastructure audit:**
 
 ```bash
 infraguard
 ```
 
-Generate JSON output:
+**Generate JSON output:**
 
 ```bash
 infraguard --format json
 ```
 
-Generate Markdown output:
+**Generate Markdown output:**
 
 ```bash
 infraguard --format markdown
 ```
 
-### Development Installation
+## Updating InfraGuard
 
-Contributors who want to modify InfraGuard or run its tests should install the development dependencies:
+To upgrade to the latest version from GitHub:
 
 ```bash
+pipx upgrade infraguard
+```
+
+## Uninstallation
+
+To uninstall InfraGuard:
+
+```bash
+pipx uninstall infraguard
+```
+
+## Development Installation
+
+Contributions are welcome!
+
+Developers who want to modify InfraGuard or run its tests can clone the repository and install it in editable mode.
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/samuelshow1234/infraguard.git
+cd infraguard
+```
+
+**2. Create a virtual environment**
+
+Linux:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Windows PowerShell:
+
+```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+**3. Install development dependencies**
+
+```bash
+python -m pip install --upgrade pip
 pip install -e ".[dev]"
 ```
 
-Run tests:
+**4. Run tests**
 
 ```bash
 pytest -v
 ```
 
-Run code quality checks:
+**5. Run code quality checks**
 
 ```bash
 ruff check .
 ```
 
-Format the source code:
+**6. Format the source code**
 
 ```bash
 ruff format .
@@ -156,7 +237,7 @@ ruff format .
 
 ## Dependencies
 
-InfraGuard manages its Python dependencies through `pyproject.toml`.
+InfraGuard manages its application dependencies through `pyproject.toml`.
 
 | Package | Purpose |
 |---|---|
@@ -167,4 +248,20 @@ InfraGuard manages its Python dependencies through `pyproject.toml`.
 | pytest | Automated testing |
 | Ruff | Linting and code formatting |
 
-The development dependencies are installed separately using the `.[dev]` option.
+Development dependencies are installed separately using the `.[dev]` option.
+
+## Contributing
+
+Contributions, bug reports, feature requests, and suggestions are welcome.
+
+If you would like to contribute:
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Make your changes.
+4. Run the tests and code quality checks.
+5. Submit a pull request.
+
+## License
+
+See the [LICENSE](LICENSE) file for licensing information.
